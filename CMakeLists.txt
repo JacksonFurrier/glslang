@@ -107,6 +107,12 @@ if(WIN32)
     if(MSVC)
         include(ChooseMSVCCRT.cmake)
     endif(MSVC)
+
+    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "x${CMAKE_CXX_SIMULATE_ID}" STREQUAL "xMSVC")
+        message(STATUS "Added C++17 flag to fix MS STL Issue")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+    endif()
+
     add_definitions(-DGLSLANG_OSINCLUDE_WIN32)
 elseif(UNIX)
     add_definitions(-DGLSLANG_OSINCLUDE_UNIX)
